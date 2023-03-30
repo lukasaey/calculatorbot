@@ -18,7 +18,7 @@ async def on_ready():
 @bot.command()
 async def calc(ctx, expr):
     try:
-        await ctx.reply(f"{numexpr.evaluate(expr)}")
+        await ctx.reply(f"{expr} = {numexpr.evaluate(expr)}")
     except KeyError:
         await ctx.reply("Invalid expression.")
 
