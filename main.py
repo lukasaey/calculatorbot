@@ -4,6 +4,7 @@ import os
 import discord
 from discord.ext import commands
 
+import numexpr
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,12 +16,11 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
 
 @bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
-
-@bot.command()
-async def hello(ctx):
-    await ctx.send("Choo choo! 🚅")
+async def calc(ctx, expr):
+    try:
+        await ctx.reply(f"{numexpr.evaluate(expr)}")
+    except KeyError:
+        await ctx.reply("Invalid expression.")
 
 
 bot.run(os.environ["DISCORD_TOKEN"])
